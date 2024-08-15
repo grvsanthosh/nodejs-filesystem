@@ -26,22 +26,31 @@ const writeFile = (req,res) => {
 
 const readFile = (req,res) => {
     try{
+        let fileData = [];
         //reading file
-        fs.readdir('./output',(err,data)=>{
+         fs.readdir('./output',(err,data)=>{
             if(err){
                 
                 console.error(err);
             }
             else if(data){
-                data.forEach((e)=>{
-                    console.log(e);
+                fileData=data.map((e)=>{
+                   return e;
+                    
                 })
+                res.status(200).send({
+                    message:"File read successful",
+                    data: fileData
+                })                
             }
+                      
+        })
+        
+        
             
-        })
-        res.status(200).send({
-            message:"File read successful"
-        })
+        
+        
+       
     }
     catch(err) {
       
